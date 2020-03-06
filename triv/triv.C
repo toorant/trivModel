@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "HerschelBulkley.H"
+#include "triv.H"
 #include "addToRunTimeSelectionTable.H"
 #include "surfaceFields.H"
 
@@ -33,12 +33,12 @@ namespace Foam
 {
 namespace viscosityModels
 {
-    defineTypeNameAndDebug(HerschelBulkley, 0);
+    defineTypeNameAndDebug(triv, 0);
 
     addToRunTimeSelectionTable
     (
         viscosityModel,
-        HerschelBulkley,
+        triv,
         dictionary
     );
 }
@@ -48,7 +48,7 @@ namespace viscosityModels
 // * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * * //
 
 Foam::tmp<Foam::volScalarField>
-Foam::viscosityModels::HerschelBulkley::calcNu() const
+Foam::viscosityModels::triv::calcNu() const
 {
     dimensionedScalar tone("tone", dimTime, 1.0);
     dimensionedScalar rtone("rtone", dimless/dimTime, 1.0);
@@ -69,7 +69,7 @@ Foam::viscosityModels::HerschelBulkley::calcNu() const
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::viscosityModels::HerschelBulkley::HerschelBulkley
+Foam::viscosityModels::triv::triv
 (
     const word& name,
     const dictionary& viscosityProperties,
@@ -78,14 +78,14 @@ Foam::viscosityModels::HerschelBulkley::HerschelBulkley
 )
 :
     viscosityModel(name, viscosityProperties, U, phi),
-    HerschelBulkleyCoeffs_
+    trivCoeffs_
     (
         viscosityProperties.optionalSubDict(typeName + "Coeffs")
     ),
-    k_("k", dimViscosity, HerschelBulkleyCoeffs_),
-    n_("n", dimless, HerschelBulkleyCoeffs_),
-    tau0_("tau0", dimViscosity/dimTime, HerschelBulkleyCoeffs_),
-    nu0_("nu0", dimViscosity, HerschelBulkleyCoeffs_),
+    k_("k", dimViscosity, trivCoeffs_),
+    n_("n", dimless, trivCoeffs_),
+    tau0_("tau0", dimViscosity/dimTime, trivCoeffs_),
+    nu0_("nu0", dimViscosity, trivCoeffs_),
     nu_
     (
         IOobject
@@ -103,20 +103,20 @@ Foam::viscosityModels::HerschelBulkley::HerschelBulkley
 
 // * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * * //
 
-bool Foam::viscosityModels::HerschelBulkley::read
+bool Foam::viscosityModels::triv::read
 (
     const dictionary& viscosityProperties
 )
 {
     viscosityModel::read(viscosityProperties);
 
-    HerschelBulkleyCoeffs_ =
+    trivCoeffs_ =
         viscosityProperties.optionalSubDict(typeName + "Coeffs");
 
-    HerschelBulkleyCoeffs_.lookup("k") >> k_;
-    HerschelBulkleyCoeffs_.lookup("n") >> n_;
-    HerschelBulkleyCoeffs_.lookup("tau0") >> tau0_;
-    HerschelBulkleyCoeffs_.lookup("nu0") >> nu0_;
+    trivCoeffs_.lookup("k") >> k_;
+    trivCoeffs_.lookup("n") >> n_;
+    trivCoeffs_.lookup("tau0") >> tau0_;
+    trivCoeffs_.lookup("nu0") >> nu0_;
 
     return true;
 }

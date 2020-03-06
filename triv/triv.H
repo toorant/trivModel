@@ -22,18 +22,18 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::viscosityModels::HerschelBulkley
+    Foam::viscosityModels::triv
 
 Description
      Herschel-Bulkley non-Newtonian viscosity model.
 
 SourceFiles
-    HerschelBulkley.C
+    triv.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef HerschelBulkley_H
-#define HerschelBulkley_H
+#ifndef triv_H
+#define triv_H
 
 #include "viscosityModel.H"
 #include "dimensionedScalar.H"
@@ -47,16 +47,16 @@ namespace viscosityModels
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class HerschelBulkley Declaration
+                           Class triv Declaration
 \*---------------------------------------------------------------------------*/
 
-class HerschelBulkley
+class triv
 :
     public viscosityModel
 {
     // Private Data
 
-        dictionary HerschelBulkleyCoeffs_;
+        dictionary trivCoeffs_;
 
         dimensionedScalar k_;
         dimensionedScalar n_;
@@ -75,13 +75,13 @@ class HerschelBulkley
 public:
 
     //- Runtime type information
-    TypeName("HerschelBulkley");
+    TypeName("triv");
 
 
     // Constructors
 
         //- Construct from components
-        HerschelBulkley
+        triv
         (
             const word& name,
             const dictionary& viscosityProperties,
@@ -91,7 +91,7 @@ public:
 
 
     //- Destructor
-    virtual ~HerschelBulkley()
+    virtual ~triv()
     {}
 
 
